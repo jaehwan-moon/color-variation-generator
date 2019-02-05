@@ -1,0 +1,16 @@
+{
+  "name": "color-variation-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jaehwan Moon <mkch115@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "dev": "parcel watch src/index.html"
+  },
+  "devDependencies": {
+    "eslint": "^5.13.0",
+    "parcel-bundler": "^1.11.0",
+    "sass": "^1.16.1"
+  }
+}
