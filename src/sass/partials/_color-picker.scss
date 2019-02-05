@@ -1,0 +1,33 @@
+#color-picker { 
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-right: 5px solid #011627;
+}
+
+.base-color { 
+  position: absolute;
+  top: 0;
+  left: 0; 
+  width: 100%;
+  height: 100%;
+  background: #2578fc;
+}
+
+.white-gradient-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #fff, rgba(255,255,255,0));
+}
+
+.black-gradient-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #000, rgba(0,0,0,0));
+}
