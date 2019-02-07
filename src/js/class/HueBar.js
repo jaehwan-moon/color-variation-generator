@@ -1,4 +1,5 @@
 import { Observable } from './Observable';
+import { getRGBHexFromHue } from '../utils/getRGBHexFromHue';
 
 class HueBar extends Observable {
   /**
@@ -33,7 +34,15 @@ class HueBar extends Observable {
     let offsetY = e.clientY - hueBarRect.top;
     if (offsetY > hueBarRect.height - this.pointer.getBoundingClientRect().height) offsetY = hueBarRect.height - this.pointer.getBoundingClientRect().height;
     this.pointer.style.top = `${offsetY}px`;
-  }  
+  }
+
+  getRGBHexString(pointerY) {
+    const hueBarRect = this.element.getBoundingClientRect()
+    const totalY = hueBarRect.height;
+
+    const RGBHexString = getRGBHexFromHue(pointerY / totalY * 100);
+    return RGBHexString;
+  }
 }
 
 export { HueBar };
