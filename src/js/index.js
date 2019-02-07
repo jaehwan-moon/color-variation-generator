@@ -1,3 +1,4 @@
+import { HueBar } from './class/HueBar';
 import { setColorAndText } from './setColor';
 
 import '../sass/main.scss';
@@ -8,8 +9,12 @@ const lightest = document.getElementById('lightest');
 const darker = document.getElementById('darker');
 const darkest = document.getElementById('darkest');
 
+
 setColorAndText(mainColor, '#2578fc');
 setColorAndText(lighter, '#3381ff');
 setColorAndText(lightest, '#4dA6ff');
 setColorAndText(darker, '#186AED');
 setColorAndText(darkest, '#0B2FE0');
+
+const hueBarElement = document.getElementById('hue-bar');
+const hueBar = new HueBar(hueBarElement);
