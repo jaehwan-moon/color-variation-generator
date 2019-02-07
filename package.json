@@ -9,6 +9,10 @@
     "dev": "parcel watch src/index.html"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/preset-env": "^7.3.1",
+    "babel-eslint": "^10.0.1",
     "eslint": "^5.13.0",
     "parcel-bundler": "^1.11.0",
     "sass": "^1.16.1"
