@@ -9,13 +9,20 @@ class ColorPicker extends Observable {
     this.element = element;
     this.pointer = document.getElementById('color-picker-pointer');
     this.baseColorElement = document.getElementsByClassName('base-color')[0];
+    this.RGBValue = {
+      red: 255,
+      green: 0,
+      blue: 0,
+    };
 
     const colorPickerRect = this.element.getBoundingClientRect();
     this.maxPointerX = colorPickerRect.width - this.pointer.getBoundingClientRect().width;
     this.maxPointerY = colorPickerRect.height - this.pointer.getBoundingClientRect().height;
 
     this.pointerX = this.maxPointerX;
-    this.pointerY = 0; 
+    this.pointerY = 0;
+    this.pointer.style.left = `${this.pointerX}px`;
+    this.pointer.style.top = `${this.pointerY}px`;
     
     this.element.addEventListener('mousedown', this.handleOnPointerDown);
     this.element.addEventListener('mouseup', this.handleOnPointerUp);
@@ -51,8 +58,8 @@ class ColorPicker extends Observable {
   subscribeOnHueChange(RGBHexString) {
     this.baseColorElement.style.background = RGBHexString;
     this.RGBValue = convertRGBHexStringToValue(RGBHexString);
-    //const updatedRGBHexString = this.getRGBHexString(this.pointerX, this.pointerY, this.RGBValue);
-    //this.update(updatedRGBHexString); // Observable.update()
+    const updatedRGBHexString = this.getRGBHexString(this.pointerX, this.pointerY, this.RGBValue);
+    this.update(updatedRGBHexString); // Observable.update()
   }
 
   getRGBHexString(pointerX, pointerY, RGBValue) {

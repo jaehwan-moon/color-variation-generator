@@ -1,11 +1,13 @@
+import { prependZeroIfOneDigitHex } from './prependZeroIfOneDigitHex';
+
 function getRGBHexFromHue(percentage) {
   const redValue = getRedValue(percentage);
   const greenValue = getGreenValue(percentage);
   const blueValue = getBlueValue(percentage);
 
-  let redHexString = prependZeroIfOneDigit(redValue.toString(16));
-  let greenHexString = prependZeroIfOneDigit(greenValue.toString(16));
-  let blueHexString = prependZeroIfOneDigit(blueValue.toString(16));
+  let redHexString = prependZeroIfOneDigitHex(redValue.toString(16));
+  let greenHexString = prependZeroIfOneDigitHex(greenValue.toString(16));
+  let blueHexString = prependZeroIfOneDigitHex(blueValue.toString(16));
 
   return `#${redHexString}${greenHexString}${blueHexString}`;
 }
@@ -17,7 +19,7 @@ function getRedValue(percentage) {
       return 255;
     case percentage > 17 && percentage < 33:
       calculatedValue = (33 - percentage) / (33 - 17) * 255;
-      return Math.round(calculatedValue)
+      return Math.round(calculatedValue);
     case percentage >= 33 && percentage <= 66:
       return 0;
     case percentage > 66 && percentage < 83:
@@ -35,7 +37,7 @@ function getGreenValue(percentage) {
       return 0;
     case percentage > 0 && percentage < 17:
       calculatedValue = percentage / 17 * 255;
-      return Math.round(calculatedValue)
+      return Math.round(calculatedValue);
     case percentage >= 17 && percentage <= 50:
       return 255;
     case percentage > 50 && percentage < 66:
@@ -53,7 +55,7 @@ function getBlueValue(percentage) {
       return 0;
     case percentage > 33 && percentage < 50:
       calculatedValue = (percentage - 33) / (50 -33) * 255;
-      return Math.round(calculatedValue)
+      return Math.round(calculatedValue);
     case percentage >= 50 && percentage <= 83:
       return 255;
     case percentage > 83 && percentage < 100:
@@ -62,11 +64,6 @@ function getBlueValue(percentage) {
     case percentage == 100:
       return 0;
   }
-}
-
-function prependZeroIfOneDigit(hexString) {
-  if (hexString.length === 1) return `0${hexString}`;
-  return hexString;
 }
 
 export { getRGBHexFromHue };
