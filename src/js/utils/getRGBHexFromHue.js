@@ -27,7 +27,7 @@ function getRedValue(percentage) {
 function getGreenValue(percentage) {
   let calculatedValue;
   switch(true) {
-    case percentage = 0:
+    case percentage == 0:
       return 0;
     case percentage > 0 && percentage < 17:
       calculatedValue = percentage / 17 * 255;
@@ -55,7 +55,7 @@ function getBlueValue(percentage) {
     case percentage > 83 && percentage < 100:
       calculatedValue = (100 - percentage) / (100 - 83) * 255;
       return Math.round();
-    case percentage = 100:
+    case percentage == 100:
       return 0;
   }
 }
