@@ -11,6 +11,12 @@ class HueBar extends Observable {
 
     this.element = element;
     this.pointer = document.getElementById('hue-selector');
+
+    const hueBarRect = this.element.getBoundingClientRect();
+    this.maxPointerY = hueBarRect.height - this.pointer.getBoundingClientRect().height;
+
+    this.pointerY = 0;
+    this.pointer.style.top = `${this.pointerY}px`;
     
     this.element.addEventListener('mousedown', this.handleOnPointerDown);
     this.element.addEventListener('mouseup', this.handleOnPointerUp);
@@ -32,21 +38,16 @@ class HueBar extends Observable {
 
   updateOnHueChange(e) {
     const hueBarRect = this.element.getBoundingClientRect();
-    const maxOffsetY = hueBarRect.height - this.pointer.getBoundingClientRect().height;
-    
-    let offsetY = e.clientY - hueBarRect.top;
-    if (offsetY > maxOffsetY) offsetY = maxOffsetY;
-    this.pointer.style.top = `${offsetY}px`;
+    this.pointerY = e.clientY - hueBarRect.top;
+    if (this.pointerY > this.maxPointerY) this.pointerY = this.maxPointerY;
+    this.pointer.style.top = `${this.pointerY}px`;
 
-    const RGBHexString = this.getRGBHexString(offsetY);
+    const RGBHexString = this.getRGBHexString();
     this.update(RGBHexString); // Observable.update()
   }
 
-  getRGBHexString(pointerY) {
-    const hueBarRect = this.element.getBoundingClientRect();
-    const totalY = hueBarRect.height;
-
-    const RGBHexString = getRGBHexFromHue(pointerY / totalY * 100);
+  getRGBHexString() {
+    const RGBHexString = getRGBHexFromHue(this.pointerY / this.maxPointerY * 100);
     return RGBHexString;
   }
 }

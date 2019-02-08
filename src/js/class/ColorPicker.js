@@ -51,23 +51,19 @@ class ColorPicker extends Observable {
     this.pointer.style.left = `${this.pointerX}px`;
     this.pointer.style.top = `${this.pointerY}px`;
 
-    const updatedRGBHexString = this.getRGBHexString(this.pointerX, this.pointerY, this.RGBValue);
+    const updatedRGBHexString = this.getRGBHexString();
     this.update(updatedRGBHexString); // Observable.update()
   }
 
   subscribeOnHueChange(RGBHexString) {
     this.baseColorElement.style.background = RGBHexString;
     this.RGBValue = convertRGBHexStringToValue(RGBHexString);
-    const updatedRGBHexString = this.getRGBHexString(this.pointerX, this.pointerY, this.RGBValue);
+    const updatedRGBHexString = this.getRGBHexString();
     this.update(updatedRGBHexString); // Observable.update()
   }
 
-  getRGBHexString(pointerX, pointerY, RGBValue) {
-    const colorPickerRect = this.element.getBoundingClientRect();
-    const totalX = colorPickerRect.height;
-    const totalY = colorPickerRect.height;
-
-    const RGBHexString = getRGBHexFromSaturationAndBrightness(pointerX / totalX * 100, pointerY / totalY * 100, RGBValue);
+  getRGBHexString() {
+    const RGBHexString = getRGBHexFromSaturationAndBrightness(this.pointerX / this.maxPointerX * 100, this.pointerY / this.maxPointerY * 100, this.RGBValue);
     return RGBHexString;
   }
 }
