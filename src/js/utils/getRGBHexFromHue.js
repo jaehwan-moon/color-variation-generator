@@ -3,7 +3,11 @@ function getRGBHexFromHue(percentage) {
   const greenValue = getGreenValue(percentage);
   const blueValue = getBlueValue(percentage);
 
-  return `#${redValue.toString(16)}${greenValue.toString(16)}${blueValue.toString(16)}`;
+  let redHexString = prependZeroIfOneDigit(redValue.toString(16));
+  let greenHexString = prependZeroIfOneDigit(greenValue.toString(16));
+  let blueHexString = prependZeroIfOneDigit(blueValue.toString(16));
+
+  return `#${redHexString}${greenHexString}${blueHexString}`;
 }
 
 function getRedValue(percentage) {
@@ -58,6 +62,11 @@ function getBlueValue(percentage) {
     case percentage == 100:
       return 0;
   }
+}
+
+function prependZeroIfOneDigit(hexString) {
+  if (hexString.length === 1) return `0${hexString}`;
+  return hexString;
 }
 
 export { getRGBHexFromHue };
