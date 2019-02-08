@@ -18,7 +18,7 @@ class HueBar extends Observable {
   }
 
   handleOnPointerDown = (e) => {
-    const hueBarRect = this.element.getBoundingClientRect()
+    const hueBarRect = this.element.getBoundingClientRect();
     let offsetY = e.clientY - hueBarRect.top;
     if (offsetY > hueBarRect.height - this.pointer.getBoundingClientRect().height) offsetY = hueBarRect.height - this.pointer.getBoundingClientRect().height;
     this.pointer.style.top = `${offsetY}px`;
@@ -30,14 +30,14 @@ class HueBar extends Observable {
   }
 
   handleOnPointerMove = (e) => {
-    const hueBarRect = this.element.getBoundingClientRect()
+    const hueBarRect = this.element.getBoundingClientRect();
     let offsetY = e.clientY - hueBarRect.top;
     if (offsetY > hueBarRect.height - this.pointer.getBoundingClientRect().height) offsetY = hueBarRect.height - this.pointer.getBoundingClientRect().height;
     this.pointer.style.top = `${offsetY}px`;
   }
 
   getRGBHexString(pointerY) {
-    const hueBarRect = this.element.getBoundingClientRect()
+    const hueBarRect = this.element.getBoundingClientRect();
     const totalY = hueBarRect.height;
 
     const RGBHexString = getRGBHexFromHue(pointerY / totalY * 100);
