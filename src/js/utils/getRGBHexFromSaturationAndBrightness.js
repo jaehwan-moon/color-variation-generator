@@ -1,0 +1,5 @@
+function getRGBHexFromSaturationAndBrightness() {
+
+}
+
+export { getRGBHexFromSaturationAndBrightness };
