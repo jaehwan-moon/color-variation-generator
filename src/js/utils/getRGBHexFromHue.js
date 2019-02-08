@@ -60,7 +60,7 @@ function getBlueValue(percentage) {
       return 255;
     case percentage > 83 && percentage < 100:
       calculatedValue = (100 - percentage) / (100 - 83) * 255;
-      return Math.round();
+      return Math.round(calculatedValue);
     case percentage == 100:
       return 0;
   }
