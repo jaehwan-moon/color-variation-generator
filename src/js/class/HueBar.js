@@ -1,4 +1,8 @@
 import { Observable } from './Observable';
+<<<<<<< HEAD
+=======
+import { getRGBHexFromHue } from '../utils/getRGBFromHue';
+>>>>>>> 396174d1883d3ca6398fdd9123a443a69f2e3bb5
 
 class HueBar extends Observable {
   /**
