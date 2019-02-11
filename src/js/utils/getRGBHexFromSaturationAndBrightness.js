@@ -1,9 +1,12 @@
 import { prependZeroIfOneDigitHex } from './prependZeroIfOneDigitHex';
+import { getRGBValueFromHue } from './getRGBFromHue';
 
-function getRGBHexFromSaturationAndBrightness(percentageX, percentageY, RGBValue) {
-  const redValue = getAdjustedColorValue(RGBValue.red);
-  const greenValue = getAdjustedColorValue(RGBValue.green);
-  const blueValue = getAdjustedColorValue(RGBValue.blue);
+function getRGBHexFromSaturationAndBrightness(brightness, saturation, hueDegree) {
+  const { red, green, blue } = getRGBValueFromHue(hueDegree);
+  
+  const redValue = getAdjustedColorValue(red);
+  const greenValue = getAdjustedColorValue(green);
+  const blueValue = getAdjustedColorValue(blue);
 
   let redHexString = prependZeroIfOneDigitHex(redValue.toString(16));
   let greenHexString = prependZeroIfOneDigitHex(greenValue.toString(16));
@@ -12,8 +15,8 @@ function getRGBHexFromSaturationAndBrightness(percentageX, percentageY, RGBValue
   return `#${redHexString}${greenHexString}${blueHexString}`;
 
   function getAdjustedColorValue(colorValue) {
-    const valueAdjustedByX = (colorValue - 255) / 100 * percentageX + 255;
-    const finalValue =  valueAdjustedByX * ( 1 - percentageY / 100);
+    const valueAdjustedByBrightness = ( 255 - colorValue ) / 100 * brightness + colorValue;
+    const finalValue =  valueAdjustedByBrightness * ( saturation / 100 - 1 );
     return Math.round(finalValue);
   }
 }
