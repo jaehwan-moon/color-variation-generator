@@ -34,8 +34,6 @@ class ColorBoxes {
     const lightestColor = getHSBofLighterColor(lighterColor);
     const darkestColor = getHSBofDarkerColor(darkerColor);
 
-    console.log(lighterColor);
-
     updateElementWithRGBHexString(this.mainColorElement, mainColor);
     updateElementWithRGBHexString(this.lighterColorElement, lighterColor);
     updateElementWithRGBHexString(this.darkerColorElement, darkerColor);
