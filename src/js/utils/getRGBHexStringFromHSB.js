@@ -1,7 +1,7 @@
 import { prependZeroIfOneDigitHex } from './prependZeroIfOneDigitHex';
 import { getRGBValueFromHue } from './getRGBFromHue';
 
-function getRGBHexStringFromHSB(hueDegree, saturation, brightness) {
+function getRGBHexStringFromHSB({ hueDegree, saturation, brightness }) {
   const { red, green, blue } = getRGBValueFromHue(hueDegree);
   
   const redValue = getAdjustedColorValue(red);

@@ -1,41 +1,53 @@
 import { getRGBHexStringFromHSB } from '../utils/getRGBHexStringFromHSB';
+import { getHSBofLighterColor, getHSBofDarkerColor } from '../utils/adjustHSB';
 
 class ColorBoxes {
   constructor() {
     this.mainColorElement = document.getElementById('main-color');
-    this.lighterElement = document.getElementById('lighter');
-    this.lightestElement = document.getElementById('lightest');
-    this.darkerElement = document.getElementById('darker');
-    this.darkestElement = document.getElementById('darkest');
+    this.lighterColorElement = document.getElementById('lighter');
+    this.lightestColorElement = document.getElementById('lightest');
+    this.darkerColorElement = document.getElementById('darker');
+    this.darkestColorElement = document.getElementById('darkest');
 
-    this.setColorAndText(this.mainColorElement, '#2578fc');
-    this.setColorAndText(this.lighterElement, '#3381ff');
-    this.setColorAndText(this.lightestElement, '#4dA6ff');
-    this.setColorAndText(this.darkerElement, '#186AED');
-    this.setColorAndText(this.darkestElement, '#0B2FE0');
-
-    this.hueDegree = 0;
-    this.brightness = 100;
-    this.saturation = 100;
+    this.HSBValue = {
+      hueDegree: 0,
+      brightness: 100,
+      saturation: 100,
+    };
   }
   
   subscribeOnHueChange(hueDegree) {
-    this.hueDegree = hueDegree;
+    this.HSBValue.hueDegree = hueDegree;
     this.setColorAndText();
   }
 
   subscribeOnSaturationAndBrightnessChange({ saturation, brightness }) {
-    this.saturation = saturation;
-    this.brightness = brightness;
+    this.HSBValue.saturation = saturation;
+    this.HSBValue.brightness = brightness;
     this.setColorAndText();
   }
 
-  setColorAndText() {
-    const RGBHexString = getRGBHexStringFromHSB(this.hueDegree, this.saturation, this.brightness);
+  setColorAndText() {    
+    const mainColor = this.HSBValue;
+    const lighterColor = getHSBofLighterColor(mainColor);
+    const darkerColor = getHSBofDarkerColor(mainColor);
+    const lightestColor = getHSBofLighterColor(lighterColor);
+    const darkestColor = getHSBofDarkerColor(darkerColor);
 
-    this.mainColorElement.style.background = RGBHexString;
-    this.mainColorElement.innerHTML = RGBHexString;
+    console.log(lighterColor);
+
+    updateElementWithRGBHexString(this.mainColorElement, mainColor);
+    updateElementWithRGBHexString(this.lighterColorElement, lighterColor);
+    updateElementWithRGBHexString(this.darkerColorElement, darkerColor);
+    updateElementWithRGBHexString(this.lightestColorElement, lightestColor);
+    updateElementWithRGBHexString(this.darkestColorElement, darkestColor);
   }
+}
+
+function updateElementWithRGBHexString(element, HSBValue) {
+  const RGBHexString = getRGBHexStringFromHSB(HSBValue);
+  element.style.background = RGBHexString;
+  element.innerHTML = RGBHexString;
 }
 
 export { ColorBoxes };
