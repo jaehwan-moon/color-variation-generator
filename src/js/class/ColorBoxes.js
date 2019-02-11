@@ -1,3 +1,5 @@
+import { getRGBHexStringFromHSB } from '../utils/getRGBHexStringFromHSB';
+
 class ColorBoxes {
   constructor() {
     this.mainColorElement = document.getElementById('main-color');
@@ -11,15 +13,28 @@ class ColorBoxes {
     this.setColorAndText(this.lightestElement, '#4dA6ff');
     this.setColorAndText(this.darkerElement, '#186AED');
     this.setColorAndText(this.darkestElement, '#0B2FE0');
+
+    this.hueDegree = 0;
+    this.brightness = 100;
+    this.saturation = 100;
+  }
+  
+  subscribeOnHueChange(hueDegree) {
+    this.hueDegree = hueDegree;
+    this.setColorAndText();
   }
 
-  setColorAndText(element, color) {
-    element.style.background = color;
-    element.innerHTML = color;
+  subscribeOnSaturationAndBrightnessChange({ saturation, brightness }) {
+    this.saturation = saturation;
+    this.brightness = brightness;
+    this.setColorAndText();
   }
 
-  subscribeOnColorChange(RGBHexString) {
-    this.setColorAndText(this.mainColorElement, RGBHexString);
+  setColorAndText() {
+    const RGBHexString = getRGBHexStringFromHSB(this.hueDegree, this.saturation, this.brightness);
+
+    this.mainColorElement.style.background = RGBHexString;
+    this.mainColorElement.innerHTML = RGBHexString;
   }
 }
 

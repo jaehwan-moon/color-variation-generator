@@ -1,6 +1,5 @@
 import { Observable } from './Observable';
-import { getRGBHexFromSaturationAndBrightness } from '../utils/getRGBHexFromSaturationAndBrightness';
-import { convertRGBHexStringToValue } from '../utils/convertRGBHexStringToValue';
+import { getRGBHexStringFromHue } from '../utils/getRGBFromHue';
 
 class ColorPicker extends Observable {
   constructor(element) {
@@ -8,12 +7,7 @@ class ColorPicker extends Observable {
    
     this.element = element;
     this.pointer = document.getElementById('color-picker-pointer');
-    this.baseColorElement = document.getElementsByClassName('base-color')[0];
-    this.RGBValue = {
-      red: 255,
-      green: 0,
-      blue: 0,
-    };
+    this.baseColorElement = document.getElementsByClassName('base-color')[0];    
 
     const colorPickerRect = this.element.getBoundingClientRect();
     this.maxPointerX = colorPickerRect.width - this.pointer.getBoundingClientRect().width;
@@ -51,20 +45,18 @@ class ColorPicker extends Observable {
     this.pointer.style.left = `${this.pointerX}px`;
     this.pointer.style.top = `${this.pointerY}px`;
 
-    const updatedRGBHexString = this.getRGBHexString();
-    this.update(updatedRGBHexString); // Observable.update()
+    const saturation = ( this.pointerX / this.maxPointerX ) * 100;
+    const brightness = ( 1 - this.pointerY / this.maxPointerY ) * 100;
+    this.update({
+      saturation,
+      brightness,
+    }); // Observable.update()
   }
 
-  subscribeOnHueChange(RGBHexString) {
-    this.baseColorElement.style.background = RGBHexString;
-    this.RGBValue = convertRGBHexStringToValue(RGBHexString);
-    const updatedRGBHexString = this.getRGBHexString();
-    this.update(updatedRGBHexString); // Observable.update()
-  }
+  subscribeOnHueChange(hueDegree) {
+    const RGBHexString = getRGBHexStringFromHue(hueDegree);
 
-  getRGBHexString() {
-    const RGBHexString = getRGBHexFromSaturationAndBrightness(this.pointerX / this.maxPointerX * 100, this.pointerY / this.maxPointerY * 100, this.RGBValue);
-    return RGBHexString;
+    this.baseColorElement.style.background = RGBHexString;    
   }
 }
 

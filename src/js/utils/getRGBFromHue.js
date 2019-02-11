@@ -12,9 +12,11 @@ function getRGBValueFromHue(hueDegree) {
   };
 }
 
-function getRGBHexFromHue(hueDegree) {
-  const { red, green, blue } = getRGBValueFromHue(hueDegree);
+function getRGBHexStringFromHue(hueDegree) {
+  return convertRGBValueToRGBHexString(getRGBValueFromHue(hueDegree));  
+}
 
+function convertRGBValueToRGBHexString({ red, green, blue }) {
   let redHexString = prependZeroIfOneDigitHex(red.toString(16));
   let greenHexString = prependZeroIfOneDigitHex(green.toString(16));
   let blueHexString = prependZeroIfOneDigitHex(blue.toString(16));
@@ -25,17 +27,17 @@ function getRGBHexFromHue(hueDegree) {
 function getRedValue(hueDegree) {
   let calculatedValue;
   switch(true) {
-    case hueDegree <= 17:
+    case hueDegree <= 60:
       return 255;
-    case hueDegree > 17 && hueDegree < 33:
-      calculatedValue = (33 - hueDegree) / (33 - 17) * 255;
+    case hueDegree > 60 && hueDegree < 120:
+      calculatedValue = (120 - hueDegree) / 60 * 255;
       return Math.round(calculatedValue);
-    case hueDegree >= 33 && hueDegree <= 66:
+    case hueDegree >= 120 && hueDegree <= 240:
       return 0;
-    case hueDegree > 66 && hueDegree < 83:
-      calculatedValue = (hueDegree - 66) / (83 - 66) * 255;
+    case hueDegree > 240 && hueDegree < 300:
+      calculatedValue = (hueDegree - 240) / 60 * 255;
       return Math.round(calculatedValue);
-    case hueDegree >= 83:
+    case hueDegree >= 300:
       return 255;
   }
 }
@@ -45,15 +47,15 @@ function getGreenValue(hueDegree) {
   switch(true) {
     case hueDegree == 0:
       return 0;
-    case hueDegree > 0 && hueDegree < 17:
-      calculatedValue = hueDegree / 17 * 255;
+    case hueDegree > 0 && hueDegree < 60:
+      calculatedValue = hueDegree / 60 * 255;
       return Math.round(calculatedValue);
-    case hueDegree >= 17 && hueDegree <= 50:
+    case hueDegree >= 60 && hueDegree <= 180:
       return 255;
-    case hueDegree > 50 && hueDegree < 66:
-      calculatedValue = (66 - hueDegree) / (66 - 50) * 255;
+    case hueDegree > 180 && hueDegree < 240:
+      calculatedValue = (240 - hueDegree) / 60 * 255;
       return Math.round(calculatedValue);
-    case hueDegree >= 66:
+    case hueDegree >= 240:
       return 0;
   }
 }
@@ -61,19 +63,23 @@ function getGreenValue(hueDegree) {
 function getBlueValue(hueDegree) {
   let calculatedValue;
   switch(true) {
-    case hueDegree <= 33:
+    case hueDegree <= 120:
       return 0;
-    case hueDegree > 33 && hueDegree < 50:
-      calculatedValue = (hueDegree - 33) / (50 -33) * 255;
+    case hueDegree > 120 && hueDegree < 180:
+      calculatedValue = (hueDegree - 120) / 60 * 255;
       return Math.round(calculatedValue);
-    case hueDegree >= 50 && hueDegree <= 83:
+    case hueDegree >= 180 && hueDegree <= 300:
       return 255;
-    case hueDegree > 83 && hueDegree < 100:
-      calculatedValue = (100 - hueDegree) / (100 - 83) * 255;
+    case hueDegree > 300 && hueDegree < 360:
+      calculatedValue = (360 - hueDegree) / 60 * 255;
       return Math.round(calculatedValue);
-    case hueDegree == 100:
+    case hueDegree == 360:
       return 0;
   }
 }
 
-export { getRGBHexFromHue, getRGBValueFromHue };
+export {
+  getRGBHexStringFromHue,
+  getRGBValueFromHue,
+  convertRGBValueToRGBHexString
+};

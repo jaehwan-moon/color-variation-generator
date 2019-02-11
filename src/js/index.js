@@ -12,6 +12,7 @@ const colorPicker = new ColorPicker(colorPickerElement);
 const colorBoxes = new ColorBoxes();
 
 hueBar.subscribe(colorPicker.subscribeOnHueChange.bind(colorPicker));
-colorPicker.subscribe(colorBoxes.subscribeOnColorChange.bind(colorBoxes));
+hueBar.subscribe(colorBoxes.subscribeOnHueChange.bind(colorBoxes));
+colorPicker.subscribe(colorBoxes.subscribeOnSaturationAndBrightnessChange.bind(colorBoxes));
 
-hueBar.update('#ff0000');
+hueBar.update(0);

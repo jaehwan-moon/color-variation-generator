@@ -1,5 +1,4 @@
 import { Observable } from './Observable';
-import { getRGBHexFromHue } from '../utils/getRGBFromHue';
 
 class HueBar extends Observable {
   /**
@@ -42,13 +41,8 @@ class HueBar extends Observable {
     if (this.pointerY > this.maxPointerY) this.pointerY = this.maxPointerY;
     this.pointer.style.top = `${this.pointerY}px`;
 
-    const RGBHexString = this.getRGBHexString();
-    this.update(RGBHexString); // Observable.update()
-  }
-
-  getRGBHexString() {
-    const RGBHexString = getRGBHexFromHue(this.pointerY / this.maxPointerY * 100);
-    return RGBHexString;
+    const hueDegree = this.pointerY / this.maxPointerY * 360;
+    this.update(hueDegree); // Observable.update()
   }
 }
 
