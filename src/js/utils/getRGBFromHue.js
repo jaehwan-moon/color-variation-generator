@@ -1,13 +1,23 @@
 import { prependZeroIfOneDigitHex } from './prependZeroIfOneDigitHex';
 
-function getRGBHexFromHue(percentage) {
-  const redValue = getRedValue(percentage);
-  const greenValue = getGreenValue(percentage);
-  const blueValue = getBlueValue(percentage);
+function getRGBValueFromHue(percentage) {
+  const red = getRedValue(percentage);
+  const green = getGreenValue(percentage);
+  const blue = getBlueValue(percentage);
 
-  let redHexString = prependZeroIfOneDigitHex(redValue.toString(16));
-  let greenHexString = prependZeroIfOneDigitHex(greenValue.toString(16));
-  let blueHexString = prependZeroIfOneDigitHex(blueValue.toString(16));
+  return {
+    red,
+    green,
+    blue,
+  };
+}
+
+function getRGBHexFromHue(percentage) {
+  const { red, green, blue } = getRGBValueFromHue(percentage);
+
+  let redHexString = prependZeroIfOneDigitHex(red.toString(16));
+  let greenHexString = prependZeroIfOneDigitHex(green.toString(16));
+  let blueHexString = prependZeroIfOneDigitHex(blue.toString(16));
 
   return `#${redHexString}${greenHexString}${blueHexString}`;
 }
@@ -66,4 +76,4 @@ function getBlueValue(percentage) {
   }
 }
 
-export { getRGBHexFromHue };
+export { getRGBHexFromHue, getRGBValueFromHue };
