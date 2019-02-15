@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel src/index.html",
-    "dev": "parcel watch src/index.html"
+    "dev": "parcel watch src/index.html",
+    "build": "parcel build src/index.html"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
