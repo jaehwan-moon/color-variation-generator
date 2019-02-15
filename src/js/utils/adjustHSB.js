@@ -26,6 +26,8 @@ function getHSBofDarkerColor ({ hueDegree, saturation, brightness }) {
 }
 
 function getUpdatedHue(hueDegree, direction) {
+  if (hueDegree === 360) hueDegree = 0;
+  
   switch(Math.floor( hueDegree / 60 )) {
     case 0:
     case 2:
